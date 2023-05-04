@@ -207,7 +207,7 @@ export async function requestChatStream(
 
         const done = content.done;
 
-        if (done && responseText.startsWith('[INFO] ')) {
+        if (done && messages.findIndex((m) => m.role === "system")) {
           // If the last message is a system message, skip it
           systemMessageCount++;
           if (systemMessageCount === 1) {
