@@ -236,6 +236,7 @@ export async function requestChatStream(
     console.error("NetWork Error", err);
     options?.onError(err as Error);
   }
+ }
 
 export async function requestWithPrompt(
   messages: Message[],
