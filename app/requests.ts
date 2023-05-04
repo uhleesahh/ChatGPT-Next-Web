@@ -251,7 +251,7 @@ export async function requestWithPrompt(
   }
 
   messages.push({
-    role: "user",
+    role: "system",
     content: prompt,
     date: new Date().toLocaleString(),
   });
