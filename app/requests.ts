@@ -245,13 +245,16 @@ export async function requestWithPrompt(
     model?: ModelType;
   },
 ) {
-  messages = messages.concat([
-    {
-      role: "user",
-      content: prompt,
-      date: new Date().toLocaleString(),
-    },
-  ]);
+  const sysMessageIndex = messages.findIndex((m) => m.role === "system");
+  if (sysMessageIndex !== -1) {
+    messages.splice(sysMessageIndex, 1);
+  }
+
+  messages.push({
+    role: "user",
+    content: prompt,
+    date: new Date().toLocaleString(),
+  });
 
   const res = await requestChat(messages, options);
 
