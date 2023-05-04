@@ -162,6 +162,7 @@ export async function requestChatStream(
 
   console.log("[Request] ", req);
 
+  let systemMessageCount = 0; // keep track of system messages seen so far
   const controller = new AbortController();
   const reqTimeoutId = setTimeout(() => controller.abort(), TIME_OUT_MS);
 
@@ -205,6 +206,17 @@ export async function requestChatStream(
         responseText += text;
 
         const done = content.done;
+
+        if (done && responseText.startsWith('[INFO] ')) {
+          // If the last message is a system message, skip it
+          systemMessageCount++;
+          if (systemMessageCount === 1) {
+            // Only skip the first system message, since there might be others later
+            responseText = '';
+            continue;
+          }
+        }
+
         options?.onMessage(responseText, false);
 
         if (done) {
@@ -224,7 +236,6 @@ export async function requestChatStream(
     console.error("NetWork Error", err);
     options?.onError(err as Error);
   }
-}
 
 export async function requestWithPrompt(
   messages: Message[],
