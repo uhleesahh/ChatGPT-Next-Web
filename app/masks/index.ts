@@ -20,6 +20,6 @@ export const BUILTIN_MASK_STORE = {
   },
 };
 
-export const BUILTIN_MASKS: Mask[] = [...CN_MASKS, ...EN_MASKS].map((m) =>
+export const BUILTIN_MASKS: Mask[] = [...EN_MASKS].map((m) =>
   BUILTIN_MASK_STORE.add(m),
 );
