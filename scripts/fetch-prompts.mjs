@@ -33,7 +33,7 @@ async function fetchEN() {
 }
 
 async function main() {
-  Promise.all(fetchEN()])
+  Promise.all([fetchEN()])
     .then(([en]) => {
       fs.writeFile(FILE, JSON.stringify({ en }));
     })
